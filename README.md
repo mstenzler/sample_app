@@ -1,0 +1,1 @@
+This is an app to provide events that users can RSVP for.
