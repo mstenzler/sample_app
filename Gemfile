@@ -44,18 +44,25 @@ end
 group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
+  gem 'selenium-webdriver', '>= 2.35.1'
+  gem 'capybara', '>= 2.1.0'
 end
 
 gem 'geokit'
 gem 'geocoder'
 gem 'cancan'
-gem "factory_girl_rails", ">= 4.2.0", :group => [:development, :test]
+#gem "factory_girl_rails", ">= 4.2.0", :group => [:development, :test]
 gem "bootstrap-sass",  '~> 3.0.3.0'
 gem 'bootstrap_form'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'devise'
+
+group :development, :test do
+  gem 'rspec-rails', '>= 2.13.1'
+  gem "factory_girl_rails", '>= 4.2.0'
+end
 
 # Use unicorn as the app server
 # gem 'unicorn'
