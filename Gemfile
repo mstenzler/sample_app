@@ -46,6 +46,14 @@ group :test do
   gem 'turn', '0.8.2', :require => false
   gem 'selenium-webdriver', '>= 2.35.1'
   gem 'capybara', '>= 2.1.0'
+  gem 'guard-rspec', '>= 2.5.0'
+  # Uncomment these lines on Linux.
+  gem 'libnotify', '>= 0.8.0'
+  # Uncomment this line on OS X.
+  # gem 'growl', '1.0.3'
+  gem 'spork-rails', '>= 4.0.0'
+  gem 'guard-spork', '>= 1.5.0'
+  gem 'childprocess', '>= 0.3.6'
 end
 
 gem 'geokit'

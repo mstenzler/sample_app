@@ -9,9 +9,14 @@ describe "Static pages" do
       expect(page).to have_content('Sample App')
     end
 
-    it "should have the right title" do
+    it "should have the base title" do
     	visit '/static_pages/home'
-    	expect(page).to have_title("Crafted Crowd | Home")
+    	expect(page).to have_title("Crafted Crowd")
+    end
+
+    it "should not have a custom page tittle" do
+      visit '/static_pages/home'
+      expect(page).not_to have_title('| Home')
     end
 
   end
