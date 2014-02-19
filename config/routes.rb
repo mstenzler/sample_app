@@ -1,4 +1,4 @@
-CraftedCrowd::Application.routes.draw do
+SampleApp::Application.routes.draw do
   get "users/new"
 
   root  'static_pages#home'
