@@ -12,7 +12,7 @@
     <%= render 'layouts/header' %>
     <div class="container">
       <% flash.each do |type, value| %>
-        <div class="alert <%= bootstrap_class_for(type) %> fade in"><%= value %></div>
+        <%= content_tag(:div, value, class: "alert #{bootstrap_class_for(type)} fade in") %>
       <% end %> 
       <%= yield %>
       <%= render 'layouts/footer' %>
