@@ -62,6 +62,8 @@ gem 'cancan'
 #gem "factory_girl_rails", ">= 4.2.0", :group => [:development, :test]
 gem "bootstrap-sass",  '~> 3.0.3.0'
 gem 'bootstrap_form'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.2'
