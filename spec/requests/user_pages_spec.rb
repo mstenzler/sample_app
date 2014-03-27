@@ -88,7 +88,7 @@ describe "User pages" do
           fill_in "Name",         with: "Example User"
           fill_in "Email",        with: "user@example"
           fill_in "Password",     with: "foobar"
-          fill_in "Confirmation", with: "foobar"
+          fill_in "Confirm Password", with: "foobar"
           click_button submit
         end
 
@@ -101,7 +101,7 @@ describe "User pages" do
           fill_in "Name",         with: "Example User"
           fill_in "Email",        with: "user@example.com"
           fill_in "Password",     with: ""
-          fill_in "Confirmation", with: ""
+          fill_in "Confirm Password", with: ""
           click_button submit
         end
 
@@ -114,7 +114,7 @@ describe "User pages" do
           fill_in "Name",         with: ""
           fill_in "Email",        with: "user@example.com"
           fill_in "Password",     with: "foobar"
-          fill_in "Confirmation", with: "foobar"
+          fill_in "Confirm Password", with: "foobar"
           click_button submit
         end
 
@@ -127,7 +127,7 @@ describe "User pages" do
           fill_in "Name",         with: "Example User"
           fill_in "Email",        with: ""
           fill_in "Password",     with: "foobar"
-          fill_in "Confirmation", with: "foobar"
+          fill_in "Confirm Password", with: "foobar"
           click_button submit
         end
 
@@ -140,7 +140,7 @@ describe "User pages" do
           fill_in "Name",         with: "Example User"
           fill_in "Email",        with: "user@example.com"
           fill_in "Password",     with: "foo"
-          fill_in "Confirmation", with: "foobar"
+          fill_in "Confirm Password", with: "foobar"
           click_button submit
         end
 
@@ -153,7 +153,7 @@ describe "User pages" do
           fill_in "Name",         with: "Example User"
           fill_in "Email",        with: "user@example.com"
           fill_in "Password",     with: "foo"
-          fill_in "Confirmation", with: "foo"
+          fill_in "Confirm Password", with: "foo"
           click_button submit
         end
 
@@ -168,7 +168,7 @@ describe "User pages" do
         fill_in "Name",         with: "Example User"
         fill_in "Email",        with: "user@example.com"
         fill_in "Password",     with: "foobar"
-        fill_in "Confirmation", with: "foobar"
+        fill_in "Confirm Password", with: "foobar"
       end
 
       it "should create a user" do
@@ -223,7 +223,44 @@ describe "User pages" do
       specify { expect(user.reload.name).to  eq new_name }
       specify { expect(user.reload.email).to eq new_email }
     end
-  end  
-end
 
+    describe "forbidden attributes" do
+      let(:params) do
+        { user: { admin: true, password: user.password,
+                  password_confirmation: user.password } }
+      end
+      before do
+        sign_in user, no_capybara: true
+        patch user_path(user), params
+      end
+      specify { expect(user.reload).not_to be_admin }
+    end
+
+  end  
+
+
+  describe "When signed in" do
+    let(:user) { FactoryGirl.create(:user) }
+    before(:each) do
+      sign_in user, no_capybara: true
+    end
+
+    describe "get new user" do
+      before do
+ ##     	sign_in user, no_capybara: true
+      	get new_user_path
+      end	 
+      specify { expect(response).to redirect_to(root_path) }
+    end
+
+#    describe "post create user" do
+#      before do
+#     	sign_in user, no_capybara: true
+#     	post :create, :user => {}
+#    #  	post :create, FactoryGirl.attributes_for(:user)
+#      end 
+#      specify { expect(response).to redirect_to(root_path) }
+#    end
+  end
+end  
 
