@@ -15,3 +15,28 @@
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
+
+$(document).ready( function() {
+
+ $('#text-counter').text('20');
+
+ /*
+ var obj = $('#micropost_content');
+ if (typeof(obj.addCharCounter) != "undefined") {
+ 	  console.log("GOT obj.addCharCounter")
+ }
+ else {
+ 	  console.log("DON'T GOT FUNCTION")
+ }
+ */
+
+ $('#micropost_content').addCharCounter({
+      counterDisplay:          '#text-counter',
+      maxCount:           140,
+      strictMax:          false,
+      countDirection:     'down',
+      safeClass:          'safe',
+      overClass:          'over',
+      strictMax: 'true'
+    });
+});

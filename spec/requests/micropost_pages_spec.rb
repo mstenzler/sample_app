@@ -42,4 +42,62 @@ describe "Micropost pages" do
       end
     end
   end
+
+  describe "side bar content" do
+
+  	describe "should contain the micropost sidebar (with elements)" do
+  		before { create_valid_micropost_and_submit("Lorem ipsum") }
+
+  		it { should have_selector("img.gravatar") }
+  		it { should have_selector("span.user_name") }
+  		it { should have_selector("span.microposts") }
+  	end
+
+  	describe "should conatin a single miropost with correct pluralization" do
+  		before { create_valid_micropost_and_submit("Lorem ipsum") }
+
+  		it { should_not have_selector("span.microposts", text: "microposts") } #plural
+  		it { should have_selector("span.microposts", exact: "1 micropost")   } #singular  
+  	end
+
+  	describe "should contain 2 microposts with correct pluralization" do
+  		before do
+  			create_valid_micropost_and_submit("Lorem ipsum")
+  			create_valid_micropost_and_submit("Lorem ipsum two")
+  		end
+
+  		it { should_not have_selector("span.microposts", text: /micropost$/) } #singular
+  		it { should have_selector("span.microposts", exact: "2 microposts")  }  #plural
+  	end
+  end
+
+  describe "pagination" do
+  	#after(:all) { user.microposts.delete_all unless user.microposts.nil? }
+  	before do
+  		40.times { FactoryGirl.create(:micropost, user: user) }
+  		visit root_path
+  	end
+
+  	it { should have_selector('div.pagination') }
+  end
+
+  describe "should not have delete links in microposts from other users" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:other_user) { FactoryGirl.create(:user, email: "other@example.com") }
+    before do
+    	sign_in other_user
+    	create_valid_micropost_and_submit('Lorem ipsum')
+    	sign_in user
+    	visit user_path(user)
+    end
+
+    it { should_not have_selector("a", text: 'delete') }
+  end
+
+  def create_valid_micropost_and_submit(string)
+  	visit root_path
+  	fill_in 'micropost_content', with: string
+  	click_button "Post"
+  end
+
 end
