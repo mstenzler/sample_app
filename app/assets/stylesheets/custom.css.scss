@@ -3,7 +3,20 @@
 /* mixins, variables, etc. */
 
 $grayMediumLight: #eaeaea;
-$grayLighter:     #eee;
+$black:  #000;
+$grayDarker:   #222;  
+$grayDark:   #333;
+$gray:   #555;
+$grayLight:  #999;
+$grayLighter:  #eee;
+$white:  #fff;
+$blue:   #049cdb;   
+$green:  #46a546;  
+$red:  #9d261d;   
+$yellow:   #ffc40d; 
+$orange:   #f89406;  
+$pink:   #c3325f;
+$purple:   #7a43b6;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;
@@ -148,6 +161,34 @@ aside {
   margin-right: 10px;
 }
 
+.stats {
+  overflow: auto;
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid $grayLighter;
+    color: gray;
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: $blue;
+    }
+  }
+  strong {
+    display: block;
+  }
+}
+
+.user_avatars {
+  overflow: auto;
+  margin-top: 10px;
+  .gravatar {
+    margin: 1px 1px;
+  }
+}
 /* forms */
 
 input[type="submit"] {
